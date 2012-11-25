@@ -1,0 +1,352 @@
+                           作业调度
+               fcfs和sjf代码
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.ByteBuffer;
+import java.util.concurrent.CountDownLatch;
+
+public class FCFSANDSJF {
+   
+   private  static int i;
+   private  int j;
+   private int qiao[];
+   private int qiao1[];
+   private int process_number;
+   private int arrival_time[];
+   private int services_time[];
+   private int completion_time[];
+   private int turn_around_time[];
+   private int average_turn_around_time[];
+   private double add1;
+   private double add2;
+   private double add3;
+   private double add4;
+   private double average_add[];
+   private double average_add1[];
+   private double right_turn_around_time[];
+   private int a[];
+   private int b[];
+   private int c[];
+   private int d[];
+   private int exchange;
+ private void  FCFSANDSJF(){
+  this.process_number=process_number;
+  this.services_time=services_time;
+  this.arrival_time=arrival_time;
+  
+  
+ }
+ private  void Set_process_number(int process_nuber)
+ {
+  this.process_number=process_nuber;
+  
+ }
+ private int get_process_number(){
+  return process_number;
+ }
+ private void Set_arrival_time(int arrival_time[]){
+  for(i=0;i<process_number;i++){
+   this.arrival_time[i]=arrival_time[i];
+  }
+ }
+ private int[]  get__arrival_time(){
+  
+  for(i=0;i<process_number;i++){
+   qiao[i]= arrival_time[i];
+  }
+  return qiao;
+ }
+ 
+ private void Set_services_time(int services_time[]){
+  for(i=0;i<process_number;i++){
+   this.services_time[i]=services_time[i];
+  }
+ }
+ private int[] get_services_time(){
+  for(i=0;i<process_number;i++){
+   qiao1[i]=services_time[i];
+  }
+  return qiao1;
+ }
+ private void FCFS(){
+  
+  System.out.println("\n===FCFS先来先服务算法===");
+  System.out.println("\n完成时间是：");
+  for(i=0;i<process_number;i++){
+   completion_time[i]=services_time[i];
+   }
+  for(i=0;i<process_number;i++){
+   completion_time[i+1]=completion_time[i]+completion_time[i+1];
+   
+  }
+  for(i=0;i<process_number;i++){
+   System.out.print(completion_time[i]+"\t");
+  }
+  System.out.println("\n周转时间是：");
+  for(i=0;i<process_number;i++){
+   turn_around_time[i]=completion_time[i]-arrival_time[i];
+  }
+  for(i=0;i<process_number;i++){
+   System.out.print(turn_around_time[i]+"\t");
+  }
+  System.out.println("\n平均周转时间是：");
+  for(i=0;i<process_number;i++){
+   average_turn_around_time[i]=turn_around_time[i];
+   }
+  for(i=0;i<process_number;i++){
+   average_turn_around_time[i+1]=average_turn_around_time[i]+average_turn_around_time[i+1];
+   add1=average_turn_around_time[i+1];
+  }
+  System.out.println(add1/process_number);
+  System.out.println("\n带权周转时间：");
+  for(i=0;i<process_number;i++){
+   right_turn_around_time[i]=turn_around_time[i]/services_time[i];
+   System.out.print(right_turn_around_time[i]+"\t");
+  }
+  System.out.println("\n平均带权周转时间：");
+  for(i=0;i<process_number;i++){
+   average_add[i]=right_turn_around_time[i];
+   
+  }
+  for(i=0;i<process_number;i++){
+   average_add[i+1]=average_add[i]+average_add[i+1];
+   add2=average_add[i+1];
+  }
+  System.out.println(add2/process_number);
+ }
+ private void SJF(){
+  System.out.println("\n===SJF：短作业优先算法===");
+  System.out.println("\n完成时间是：");
+  for(i=0;i<process_number;i++){
+   a[i]=services_time[i];
+  }
+  for(i=1;i<process_number-1;i++){
+   for(j=i+1;j<process_number;j++){
+    if(a[j]<a[i]){
+     exchange=a[j];
+     a[j]=a[i];
+     a[i]=exchange;
+    }
+     
+   }
+  
+  }
+  for(i=1;i<process_number;i++){
+   for(j=1;i<process_number;j++){
+    if(a[i]==services_time[j]){
+     b[i]=j;
+     break;
+    }
+   }
+  }
+  b[0]=services_time[0];
+  for(i=1;i<process_number;i++){
+   a[i]=a[i]+a[i-1];
+   c[b[i]]=a[i];
+   
+  }
+  c[0]=4;
+  for(i=0;i<process_number;i++){
+   
+   System.out.print(c[i]+"\t");
+  }
+  System.out.println("\n周转时间是：");
+  for(i=0;i<process_number;i++){
+   turn_around_time[i]=c[i]-arrival_time[i];
+  }
+  for(i=0;i<process_number;i++){
+   System.out.print(turn_around_time[i]+"\t");
+  }
+  for(i=0;i<process_number;i++){
+   d[i]=turn_around_time[1];
+  }
+  for(i=0;i<process_number;i++){
+   turn_around_time[i+1]=turn_around_time[i+1]+turn_around_time[i];
+   add3=turn_around_time[i+1];
+  }
+  System.out.println("\n平均周转时间是："+add3/process_number);
+  System.out.println("\n带权周转时间是：");
+  for(i=0;i<process_number;i++){
+   right_turn_around_time[i]=c[i]/services_time[i];
+  }
+  for(i=0;i<process_number;i++){
+   System.out.print(right_turn_around_time[i]+"\t");
+  }
+  System.out.println("\n平均带权周转时间是：");
+  for(i=0;i<process_number;i++){
+   right_turn_around_time[i+1]=right_turn_around_time[i+1]+right_turn_around_time[i];
+   add4=right_turn_around_time[i+1];
+  }
+  System.out.println(add4/process_number);
+  
+ }
+ public static void main(String[] args) throws Exception{
+  System.out.println("请输入进程数：");
+  FCFSANDSJF wo=new FCFSANDSJF();
+  BufferedReader buf=null;
+  buf=new BufferedReader(new InputStreamReader(System.in));
+  String str1=null;
+  str1=buf.readLine();
+  wo.process_number=Integer.parseInt(str1);
+  wo.arrival_time=new int[wo.process_number];
+  wo.services_time=new int[wo.process_number];
+  wo.completion_time=new int[wo.process_number+1];
+  wo.turn_around_time=new int[wo.process_number+1];
+  wo.average_turn_around_time=new int[wo.process_number+1];
+  wo.right_turn_around_time=new double[wo.process_number+1];
+  wo.average_add=new double[wo.process_number+1];
+  wo.b=new int[wo.process_number+3];
+  wo.a=new int[wo.process_number+3];
+  wo.c=new int[wo.process_number+3];
+  wo.d=new int[wo.process_number+3];
+  
+  String str=null;
+  String str2=null;
+ 
+  
+  System.out.println("\n请输入各进程到达时间");
+  for(i=0;i<wo.process_number;i++){
+   str=buf.readLine();
+   wo.arrival_time[i]=Integer.parseInt(str);
+  }
+  
+  
+  System.out.println("\n请输入各个进程服务时间");
+  for(i=0;i<wo.process_number;i++){
+   str2=buf.readLine();
+   wo.services_time[i]=Integer.parseInt(str2);
+   
+  }
+  System.out.println("该进程数为"+wo.process_number);
+  System.out.println("\n到达时间为");
+  for(i=0;i<wo.process_number;i++){
+   System.out.print(wo.arrival_time[i]+"\t");
+  }
+  System.out.println("\n服务时间为：");
+  for(i=0;i<wo.process_number;i++){
+   System.out.print(wo.services_time[i]+"\t");
+  }
+  System.out.println("\n======先来先服务【0】========");
+  System.out.println("\n======短作业优先【1】========");
+  System.out.println("\n======退出系统【2】========");
+  String str3=null;
+  str3=buf.readLine();
+  i=Integer.parseInt(str3);
+  while(i!=2){
+   
+  switch (i) {
+  case 0:
+   wo.FCFS();
+   break;
+  case 1:
+   wo.SJF();
+  default:
+   break;
+  }
+  if(i==2){
+   break;
+  }
+  
+  str3=buf.readLine();
+  i=Integer.parseInt(str3);
+      }
+ }
+        
+}
+fcfs结果分析
+请输入进程数：
+4
+
+请输入各进程到达时间
+0
+2
+3
+4
+
+请输入各个进程服务时间
+4
+6
+3
+8
+该进程数为4
+
+到达时间为
+0	2	3	4	
+服务时间为：
+4	6	3	8	
+======先来先服务【0】========
+
+======短作业优先【1】========
+
+======退出系统【2】========
+0
+
+===FCFS先来先服务算法===
+
+完成时间是：
+4	10	13	21	
+周转时间是：
+4	8	10	17	
+平均周转时间是：
+9.75
+
+带权周转时间：
+1.0	1.0	3.0	2.0	
+平均带权周转时间：
+1.75
+sjf结果分析
+请输入进程数：
+4
+
+请输入各进程到达时间
+0
+3
+5
+9
+
+请输入各个进程服务时间
+5
+9
+4
+6
+该进程数为4
+
+到达时间为
+0	3	5	9	
+服务时间为：
+5	9	4	6	
+======先来先服务【0】========
+
+======短作业优先【1】========
+
+======退出系统【2】========
+1
+
+===SJF：短作业优先算法===
+
+完成时间是：
+4	24	9	15	
+周转时间是：
+4	21	4	6	
+平均周转时间是：8.75
+
+带权周转时间是：
+0.0	2.0	2.0	2.0	
+平均带权周转时间是：
+1.5
+以上作业代码纯属网上搜索抄写下来的，如有雷同纯属巧合。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
