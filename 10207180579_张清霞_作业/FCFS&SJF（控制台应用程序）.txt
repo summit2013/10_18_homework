@@ -1,0 +1,154 @@
+//主程序如下：
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace 调度
+{
+   
+    class Program
+    {
+       
+        static void Main(string[] args)
+        {
+            int a, b, c;
+            int[] arr = new int[3];
+            char[] arr1 = new char[] { 'A','B','C' };
+                Console.WriteLine("请依次输入进程A、B、C执行时间：");
+                Console.WriteLine();
+                Console.Write("进程A-CPU=");
+                 arr[0]= Convert.ToInt32(Console.ReadLine());
+                 a = arr[0];
+                Console.Write("进程B-CPU=");
+                 arr[1]= Convert.ToInt32(Console.ReadLine());
+                 b = arr[1];
+                Console.Write("进程C-CPU=");
+                 arr[2]= Convert.ToInt32(Console.ReadLine());
+                 c = arr[2];
+            FS fs = new FS();
+            string newstr;
+            do
+            {
+                Console.WriteLine("请选择调度类型：FCFS/SJF(不区分大小写）");
+                string str = Console.ReadLine();
+                newstr = str.ToUpper();
+            }
+            while ((newstr!="FCFS")&&(newstr!="SJF"));
+            Console.WriteLine();
+             if (newstr == "FCFS")
+                fs.FCFS(a,b,c);
+            else fs.SJF(arr,arr1);
+            Console.ReadKey();
+        }
+    }
+}
+
+//在调度这个命名空间内另外新建一个类以实现调度算法：
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+//using System.Math;
+
+namespace 调度
+{
+    class FS
+    {
+        public void FCFS(int a, int b, int c)
+        {
+            Console.WriteLine("进程A,B,C先到先服务调度时序图如下：");
+            Console.Write("A-CPU  ");
+            for (int i = 1; i <= a; i++)
+                Console.Write("----");
+            Console.WriteLine();
+            Console.Write("B-CPU  ");
+            for (int i = 1; i <= a; i++)
+                Console.Write("    ");
+            for (int i = 1; i <= b; i++)
+                Console.Write("----");
+            Console.WriteLine();
+            Console.Write("C-CPU  ");
+            for (int i = 1; i <= a + b; i++)
+                Console.Write("    ");
+            for (int i = 1; i <= c; i++)
+                Console.Write("----");
+            double B =3 * a + 2 * b + c ;
+            double B2 = B / 3;
+            double b2=Math .Round (B2,2);
+            double B33 = a+b;
+            double B3 = B33 / b;
+             double b3 = Math.Round(B3, 2);
+             double C33 = a + b + c;
+             double C3 = C33 / c;
+             double c3 = Math.Round(C3, 2);
+             double B4=(1+B3+C3)/3;
+             double b4 = Math.Round(B4, 2);
+             char chr = '-';
+             Console.WriteLine();
+             Console.WriteLine();
+            Console.WriteLine("进程   周转时间       平均周转时间         带权时间        平均带权时间");
+            Console.WriteLine(" A         {0}                {1}                 {2}                  {3}", a,chr,1,chr );
+            Console.WriteLine(" B         {0}               {1}             {2}                 {3}", a+b,b2,b3,b4);
+            Console.WriteLine(" C         {0}               {1}                {2}                    {3}",a+b+c,chr,c3,chr);
+        }
+        public void SJF(int[] arr, char[] arr1)
+        {
+            for (int i = 0; i < arr.Length - 1; i++)
+            {
+                for (int j = 0; j < arr.Length - 1 - i; j++)
+                {
+                    if (arr[j] > arr[j + 1])
+                    {
+                        int temp = arr[j];
+                        arr[j] = arr[j + 1];
+                        arr[j + 1] = temp;
+                        char temp1 = arr1[j];
+                        arr1[j] = arr1[j + 1];
+                        arr1[j + 1] = temp1;
+                    }
+
+                }
+            }
+            Console.WriteLine("进程A,B,C最短作业优先服务的调度时序图如下：");
+            Console.Write(Convert.ToChar (arr1[0]));
+            Console.Write("-CPU");
+            for (int i = 1; i <= arr[0]; i++)
+                Console.Write("----");
+            Console.WriteLine();
+            Console.Write( Convert.ToChar(arr1[1]));
+            Console.Write("-CPU");
+            for (int i = 1; i <= arr[0]; i++)
+                Console.Write("    ");
+            for (int i = 1; i <= arr[1]; i++)
+                Console.Write("----");
+            Console.WriteLine();
+            Console.Write( Convert.ToChar(arr1[2]));
+            Console.Write("-CPU");
+            for (int i = 1; i <= arr[0] + arr[1]; i++)
+                Console.Write("    ");
+            for (int i = 1; i <= arr[2]; i++)
+                Console.Write("----");
+            double B = 3 * arr[0] + 2 * arr[1] + arr[2];
+            double B2 = B / 3;
+            double b2 = Math.Round(B2, 2);
+            double B33 = arr[0] + arr[1];
+            double B3 = B33 / arr[1];
+            double b3 = Math.Round(B3, 2);
+            double C33 = arr[0] + arr[1] + arr[2];
+            double C3 = C33 / arr[2];
+            double c3 = Math.Round(C3, 2);
+            double B4 = (1 + B3 + C3) / 3;
+            double b4 = Math.Round(B4, 2);
+            char chr = '-';
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine("进程   周转时间       平均周转时间         带权时间        平均带权时间");
+            Console.WriteLine(" {4}-CPU         {0}                {1}                 {2}                  {3}", arr[0], chr, 1, chr,arr1[0]);
+            Console.WriteLine(" {4}-CPU         {0}               {1}             {2}                 {3}", arr[0] + arr[1], b2, b3, b4,arr1[1]);
+            Console.WriteLine(" {4}-CPU         {0}               {1}                {2}                  {3}", arr[0] + arr[1] + arr[2], chr, c3, chr,arr1[2]);
+        }
+    }
+}
+
+
