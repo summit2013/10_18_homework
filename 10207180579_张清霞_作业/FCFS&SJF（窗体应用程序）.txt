@@ -1,0 +1,135 @@
+//调度算法窗体应用程序
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Windows.Forms;
+
+namespace OSDU
+{
+    public partial class Form1 : Form
+    {
+        
+        public Form1()
+        {
+            InitializeComponent();
+        }
+        protected override void OnPaint(PaintEventArgs e )  //用GUI画一个直角坐标系
+        {
+             base.OnPaint(e);
+             Graphics g = e.Graphics;
+             Pen myPen = new Pen(Color.Black, 2);
+             Point pt1 = new Point(70, 60);
+             Point pt2 = new Point(70, 320);
+             Point pt3 = new Point(62, 75);
+             Point pt4 = new Point(700,320 );
+             Point pt5 = new Point(78,75);
+             Point pt6 = new Point(685, 312);
+             Point pt7 = new Point(685, 328);
+             g.DrawLine(myPen, pt1, pt2);
+             g.DrawLine(myPen, pt2, pt4);
+             g.DrawLine(myPen, pt1, pt3);
+             g.DrawLine(myPen, pt1, pt5);
+             g.DrawLine(myPen, pt6, pt4);
+             g.DrawLine(myPen, pt7, pt4);
+             myPen.Dispose();
+             g.Dispose();
+        }
+        private void Form1_Load(object sender, EventArgs e)
+        {
+          
+            
+        }
+
+        private void button1_Click(object sender, EventArgs e) //在直角坐标系上画调度算法的时序图
+        {
+            if (radFCFS.Checked)                   //当用户选择FCFS算法时，将其调度时序图画在直角坐标系上
+            {
+                int a = Convert.ToInt16(txtA.Text);
+                int b = Convert.ToInt16(txtB.Text);
+                int c = Convert.ToInt16(txtC.Text);
+                Pen myPen1 = new Pen(Color.Red,3);
+                Pen myPen2 = new Pen(Color.Green,3);
+                Pen myPen3 = new Pen(Color.Blue,3);
+                Point pt1 = new Point(70, 120);
+                Point pt2 = new Point(70+a*30,120);
+                Point pt3 = new Point(70 + a * 30, 180);
+                Point pt4 = new Point(70 + a * 30+b*30, 180);
+                Point pt5 = new Point(70 + a * 30 + b * 30, 240);
+                Point pt6 = new Point(70 + a * 30 + b * 30+c*30, 240);
+                Graphics g;
+                g = this.CreateGraphics();
+                g.DrawLine(myPen1, pt1, pt2);
+                g.DrawLine(myPen2, pt3, pt4);
+                g.DrawLine(myPen3, pt5, pt6);
+                myPen1.Dispose();
+                myPen2.Dispose();
+                myPen3.Dispose();
+                g.Dispose();
+                lblA.Text = "A-CPU";
+                lblB.Text = "B-CPU";
+                lblC.Text = "C-CPU";
+                lbl.Text = "先到先服务调度时序图";
+            }
+            if (radSJF.Checked)                     //当用户选择SJF算法时，将其调度时序图画在直角坐标系上
+            {
+                int a = Convert.ToInt16(txtA.Text);
+                int b = Convert.ToInt16(txtB.Text);
+                int c = Convert.ToInt16(txtC.Text);
+                char[] arr1 = new char[] { 'A', 'B', 'C' };
+                int[] arr =new int[3];
+                arr[0] = a;
+                arr[1] = b;
+                arr[2] = c;
+                for (int i = 0; i < arr.Length - 1; i++)
+                {
+                    for (int j = 0; j < arr.Length - 1 - i; j++)
+                    {
+                        if (arr[j] > arr[j + 1])
+                        {
+                            int temp = arr[j];
+                            arr[j] = arr[j + 1];
+                            arr[j + 1] = temp;
+                            char temp1 = arr1[j];
+                            arr1[j] = arr1[j + 1];
+                            arr1[j + 1] = temp1;
+                        }
+
+                    }
+                    Pen myPen1 = new Pen(Color.Red, 3);
+                    Pen myPen2 = new Pen(Color.Green, 3);
+                    Pen myPen3 = new Pen(Color.Blue, 3);
+                    Point pt1 = new Point(70, 120);
+                    Point pt2 = new Point(70 + arr[0]*30, 120);
+                    Point pt3 = new Point(70 + arr[0]* 30, 180);
+                    Point pt4 = new Point(70 + arr[0]* 30 + arr[1]* 30, 180);
+                    Point pt5 = new Point(70 + arr[0]* 30 + arr[1]* 30, 240);
+                    Point pt6 = new Point(70 + arr[0]* 30 + arr[1]* 30 + arr[2] * 30, 240);
+                    Graphics g;
+                    g = this.CreateGraphics();
+                    g.DrawLine(myPen1, pt1, pt2);
+                    g.DrawLine(myPen2, pt3, pt4);
+                    g.DrawLine(myPen3, pt5, pt6);
+                    myPen1.Dispose();
+                    myPen2.Dispose();
+                    myPen3.Dispose();
+                    g.Dispose();
+                    lblA.Text =Convert.ToString (arr1[0]);
+                    lblB.Text = Convert.ToString(arr1[1]);
+                    lblC.Text = Convert.ToString(arr1[2]);
+                    lbl.Text = "最短作业优先调度时序图";
+
+                }
+            }
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+    }
+}

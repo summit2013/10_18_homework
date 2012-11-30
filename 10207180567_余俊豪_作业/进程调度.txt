@@ -1,0 +1,101 @@
+1. 进程/作业调度：先来先服务。（1人）  
+建立作业的数据结构描述；  
+手动来输入作业；  
+在屏幕上显示每个作业的执行情况；  
+时间的流逝按如下方法模拟：按键盘，每按一次可认为过一个时间单位；    
+计算并显示一批作业的周转时间、平均周转时间、带权周转时间、平均带权周转时间。  
+将一批作业的执行情况存入磁盘文件，以后可以读出并重放；  
+
+
+class pro1 
+{
+  public:
+  char num;
+  int arriveT;
+  int burst;
+  float turnover_time;
+  float weighte_T_time;
+}; 
+
+#include<iostream.h>  
+  int time=0; 
+  void arriveTime(pro1*,int); 
+  void averag_Time(pro1*);  
+  void runTime(pro1* ,int,int); 
+  void time2() {  pro1 a[3],p;  
+  int i,n,m;  for(i=0;i<=3;i++)  
+  {
+   cout<<" 输入进程名：";
+   cin>>a[i].num;
+   cout<<" 输入到达时间：";
+   cin>>a[i].arriveT;
+   cout<<" 输入服务时间：";
+   cin>>a[i].burst;
+   cout<<endl;
+   for(n=0;n<i;n++)
+     {
+    if(a[i].arriveT<a[n].arriveT)
+       {  
+         p=a[i]; 
+         for(m=i;m>n;m--)
+           {
+              a[m]=a[m-1];
+           }
+         a[n]=p;
+       }
+     }
+  }
+  for(i=0;i<=3;i++)
+  {
+      arriveTime(a,i);
+      int run=0;
+      runTime(a,i,run);
+  }
+  averag_Time(a);
+
+} 
+
+void arriveTime(pro1 *a,int i) 
+{  
+   if(a[i].arriveT>time)
+   {
+      time++;
+      arriveTime(a,i);
+   }
+   return; 
+} 
+void runTime(pro1 *a,int i,int run) 
+{
+   if(a[i].burst>run)
+   {
+     time++;
+     run++;
+     runTime(a,i,run);
+   }
+   else
+   {   a[i].turnover_time=(float) time-a[i].arriveT;
+       a[i].weighte_T_time=a[i].turnover_time/a[i].burst;
+
+       cout<<" 进程名："<<a[i].num<<" 到达时间"<<a[i].arriveT<<"  执行时间："<<a[i].burst<<" 完成时间："<<time;//
+       cout<<" 周转时间："<<a[i].turnover_time<<" 带权周转时间："<<a[i].weighte_T_time<<endl;
+   } 
+   return;
+}    
+   void averag_Time(pro1 *a)
+   {
+       float total_t_time=0.0,total_w_t_time=0.0,a_t_time=0.0,a_w_t_time=0.0;
+       for(int i=0;i<=3;i++)
+       {
+           total_t_time=+a[i].turnover_time;
+           total_w_t_time=+a[i].weighte_T_time;
+       }
+           a_t_time=total_t_time/4;
+           a_w_t_time=total_w_t_time/4;
+
+       cout<<"  平均周转时间："<<a_t_time<<"  平均带权周转时间："<<a_w_t_time<<endl;
+   }
+
+   void main() 
+   {
+      time2();
+   }
