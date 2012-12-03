@@ -1,3 +1,3 @@
 java -version
-java -jar ef.jar
+java -jar 先来先服务.jar
 pause
