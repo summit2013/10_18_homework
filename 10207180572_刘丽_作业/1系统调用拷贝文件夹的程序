@@ -1,0 +1,86 @@
+1.  package com.heima.question8;  
+2.	  
+3.	import static org.junit.Assert.assertEquals;  
+4.	  
+5.	import java.io.File;  
+6.	import java.io.FileInputStream;  
+7.	import java.io.FileNotFoundException;  
+8.	import java.io.FileOutputStream;  
+9.	import java.io.IOException;  
+10.	  
+11.	import org.junit.Test;  
+12.	/** 
+13.	 * @author Alex Zhuang 
+14.	 * 
+15.	 */  
+16.	public class FileCopy {  
+17.	      
+18.	    @Test  
+19.	    public static void testCopyFolder(){  
+20.	        String sourceFilePath="D:\\java_test";  
+21.	        String targetFilePath="D:\\alex-test";  
+22.	        copyFile(sourceFilePath , targetFilePath);  
+23.	        System.out.println("Copy complete...");  
+24.	        int sourceFileNum = new File(sourceFilePath).listFiles().length;  
+25.	        int targetFileNum = new File(targetFilePath+ "\\"+new File(sourceFilePath).getName()).listFiles().length;  
+26.	        assertEquals(sourceFileNum,targetFileNum);    
+27.	    }  
+28.	      
+29.	    @Test  
+30.	    public static void testCopyFile(){  
+31.	        String sourceFilePath="D:\\test1.txt";  
+32.	        String targetFilePath="D:\\alex-test";  
+33.	        copyFile(sourceFilePath , targetFilePath);  
+34.	        System.out.println("Copy complete...");  
+35.	        assertEquals(true,new File(targetFilePath+"\\"+new File(sourceFilePath).getName()).isFile());  
+36.	    }  
+37.	      
+38.	    /** 
+39.	     * 如需测试，请先把”第8题测试“文件夹中的文件复制到D盘根目录 
+40.	     */  
+41.	    public static void main(String[] args){  
+42.	        testCopyFolder();  
+43.	        testCopyFile();  
+44.	    }  
+45.	      
+46.	      
+47.	    /** 
+48.	     * @param sourceFilePath 文件复制源 
+49.	     * @param targetFilePath 文件复制目标端 
+50.	     */  
+51.	    public static void copyFile(String sourceFilePath , String targetFilePath){  
+52.	        File sourceFile = new File(sourceFilePath);  
+53.	        File[] sourceFiles = null;  
+54.	        if(sourceFile.isDirectory()){  
+55.	            targetFilePath +="\\"+sourceFile.getName();  
+56.	            File targetFile = new File(targetFilePath);  
+57.	            targetFile.mkdirs();  
+58.	            sourceFiles = sourceFile.listFiles();  
+59.	        }else if(sourceFile.isFile()){  
+60.	            sourceFiles = new File[]{sourceFile};  
+61.	        }  
+62.	          
+63.	        for(int i=0;i<sourceFiles.length;i++){  
+64.	            if(sourceFiles[i].isDirectory()){                 
+65.	                String newSourceFilePath= sourceFilePath + "\\"+sourceFiles[i].getName();  
+66.	                copyFile(newSourceFilePath,targetFilePath);  
+67.	            }else{  
+68.	                try {  
+69.	                    FileInputStream fis = new FileInputStream(sourceFiles[i]);  
+70.	                    FileOutputStream fos = new FileOutputStream(targetFilePath+"\\"+sourceFiles[i].getName());  
+71.	                    int read = -1;  
+72.	                    while((read=fis.read())!=-1){  
+73.	                        fos.write(read);  
+74.	                    }  
+75.	                    fos.flush();  
+76.	                    fos.close();  
+77.	                    fis.close();  
+78.	                } catch (FileNotFoundException e) {  
+79.	                    e.printStackTrace();  
+80.	                } catch (IOException e) {  
+81.	                    e.printStackTrace();  
+82.	                }  
+83.	            }  
+84.	        }  
+85.	    }  
+86.	}  
