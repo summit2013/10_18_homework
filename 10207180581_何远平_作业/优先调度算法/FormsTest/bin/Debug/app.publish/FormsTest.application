@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<asmv1:assembly xsi:schemaLocation="urn:schemas-microsoft-com:asm.v1 assembly.adaptive.xsd" manifestVersion="1.0" xmlns:asmv3="urn:schemas-microsoft-com:asm.v3" xmlns:dsig="http://www.w3.org/2000/09/xmldsig#" xmlns:co.v1="urn:schemas-microsoft-com:clickonce.v1" xmlns:co.v2="urn:schemas-microsoft-com:clickonce.v2" xmlns="urn:schemas-microsoft-com:asm.v2" xmlns:asmv1="urn:schemas-microsoft-com:asm.v1" xmlns:asmv2="urn:schemas-microsoft-com:asm.v2" xmlns:xrml="urn:mpeg:mpeg21:2003:01-REL-R-NS" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <assemblyIdentity name="FormsTest.application" version="1.0.0.1" publicKeyToken="bca92c201fcb4543" language="neutral" processorArchitecture="x86" xmlns="urn:schemas-microsoft-com:asm.v1" />
+  <description asmv2:publisher="FormsTest" asmv2:product="FormsTest" xmlns="urn:schemas-microsoft-com:asm.v1" />
+  <deployment install="true" mapFileExtensions="true">
+    <subscription>
+      <update>
+        <beforeApplicationStartup />
+      </update>
+    </subscription>
+    <deploymentProvider codebase="http://lbwin7/Process/FormsTest.application" />
+  </deployment>
+  <compatibleFrameworks xmlns="urn:schemas-microsoft-com:clickonce.v2">
+    <framework targetVersion="4.0" profile="Client" supportedRuntime="4.0.30319" />
+    <framework targetVersion="4.0" profile="Full" supportedRuntime="4.0.30319" />
+  </compatibleFrameworks>
+  <dependency>
+    <dependentAssembly dependencyType="install" codebase="Application Files\FormsTest_1_0_0_1\FormsTest.exe.manifest" size="6708">
+      <assemblyIdentity name="FormsTest.exe" version="1.0.0.1" publicKeyToken="bca92c201fcb4543" language="neutral" processorArchitecture="x86" type="win32" />
+      <hash>
+        <dsig:Transforms>
+          <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
+        </dsig:Transforms>
+        <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
+        <dsig:DigestValue>OBt+HyR50lNbfzRBXZKBOlyqTcY=</dsig:DigestValue>
+      </hash>
+    </dependentAssembly>
+  </dependency>
+<publisherIdentity name="CN=LBWIN7\Administrator" issuerKeyHash="ff8d7301b91d33d7d81608bc2ef450ce69c85130" /><Signature Id="StrongNameSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" /><DigestValue>7acW/RGwwXin1pKO1R+roe0W+fA=</DigestValue></Reference></SignedInfo><SignatureValue>balG/ueSKWLyY646qSlm+NGHv64fV6hhCj7Ru5yQQo4B8Mfr2+tG5UQUmlj4XKSem1UTdsRyEwKDFRo24XaKtUJWh0MNa6IfSFodSVy1Rn1cbzGz+4N/dEaf1zH0v59WQr4m3z1LDQfTDG0E8bDspmaLrLh6ZVCbDTkIZw1nvc4=</SignatureValue><KeyInfo Id="StrongNameKeyInfo"><KeyValue><RSAKeyValue><Modulus>omugn0IJNKG2HXScZLgphmIW2nSxkib+pkoxYFHQvzjWmRK6q+MUWenocMcJw+/79oNe8gJk/JzGmLhgNonAIGEhYLHuXMZqsolXioSjsGPl+/mA1TOC7QvCsRzBP3Ju6UoRbiBOwvxf7fMKXKxRRdPeFIRKzGqGtB0wPSA9Vy8=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><msrel:RelData xmlns:msrel="http://schemas.microsoft.com/windows/rel/2005/reldata"><r:license xmlns:r="urn:mpeg:mpeg21:2003:01-REL-R-NS" xmlns:as="http://schemas.microsoft.com/windows/pki/2005/Authenticode"><r:grant><as:ManifestInformation Hash="f0f916eda1ab1fd58e92d6a778c1b011fd16a7ed" Description="" Url=""><as:assemblyIdentity name="FormsTest.application" version="1.0.0.1" publicKeyToken="bca92c201fcb4543" language="neutral" processorArchitecture="x86" xmlns="urn:schemas-microsoft-com:asm.v1" /></as:ManifestInformation><as:SignedBy /><as:AuthenticodePublisher><as:X509SubjectName>CN=LBWIN7\Administrator</as:X509SubjectName></as:AuthenticodePublisher></r:grant><r:issuer><Signature Id="AuthenticodeSignature" xmlns="http://www.w3.org/2000/09/xmldsig#"><SignedInfo><CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /><SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1" /><Reference URI=""><Transforms><Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature" /><Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#" /></Transforms><DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" /><DigestValue>yjI6NE03UCTV4OrvXzL6/+Yp/uQ=</DigestValue></Reference></SignedInfo><SignatureValue>CcH0yQKbXUO7O4dTaKxihm6xm9lShYHpbye6FByL4jdLS8AkxrtEi47oZLt+UmWxLyrf72aHILRj0MuDgKvFOMONDsUiCKtF1fKOGavpJSF8h35k6bs5/8EfElyh4rLpbrKnSw+iTVqvf5uslCwJMvgRYLyll2allaufzBqHwxM=</SignatureValue><KeyInfo><KeyValue><RSAKeyValue><Modulus>omugn0IJNKG2HXScZLgphmIW2nSxkib+pkoxYFHQvzjWmRK6q+MUWenocMcJw+/79oNe8gJk/JzGmLhgNonAIGEhYLHuXMZqsolXioSjsGPl+/mA1TOC7QvCsRzBP3Ju6UoRbiBOwvxf7fMKXKxRRdPeFIRKzGqGtB0wPSA9Vy8=</Modulus><Exponent>AQAB</Exponent></RSAKeyValue></KeyValue><X509Data><X509Certificate>MIIB6TCCAVKgAwIBAgIQXgFEmzVZ975E5PLhdIUU0zANBgkqhkiG9w0BAQUFADAzMTEwLwYDVQQDHigATABCAFcASQBOADcAXABBAGQAbQBpAG4AaQBzAHQAcgBhAHQAbwByMB4XDTEyMTIxNTA0NTYzMloXDTEzMTIxNTEwNTYzMlowMzExMC8GA1UEAx4oAEwAQgBXAEkATgA3AFwAQQBkAG0AaQBuAGkAcwB0AHIAYQB0AG8AcjCBnzANBgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEAomugn0IJNKG2HXScZLgphmIW2nSxkib+pkoxYFHQvzjWmRK6q+MUWenocMcJw+/79oNe8gJk/JzGmLhgNonAIGEhYLHuXMZqsolXioSjsGPl+/mA1TOC7QvCsRzBP3Ju6UoRbiBOwvxf7fMKXKxRRdPeFIRKzGqGtB0wPSA9Vy8CAwEAATANBgkqhkiG9w0BAQUFAAOBgQCIj/+VVr6GjQIHpgIybF1PN/TPwCCNj6hXeRYB6z7A8JpCgUtpl+K90P75xlrYa5SfFZMrbVAnFEHsRls+6TIQnmn6T/wr+F7Daqteq0l2+GlHdFBGxDf7UccMA6BOQiZtJAhKIywfM2yVEHEZ/kF6OwYRvdqi2TApR9g1F61iEg==</X509Certificate></X509Data></KeyInfo></Signature></r:issuer></r:license></msrel:RelData></KeyInfo></Signature></asmv1:assembly>
