@@ -1,0 +1,10 @@
+G:\学习\操作系统作业\testgdi2\testgdi2\bin\Debug\testgdi2.exe
+G:\学习\操作系统作业\testgdi2\testgdi2\bin\Debug\testgdi2.pdb
+G:\学习\操作系统作业\testgdi2\testgdi2\obj\x86\Debug\ResolveAssemblyReference.cache
+G:\学习\操作系统作业\testgdi2\testgdi2\obj\x86\Debug\testgdi2.Form1.resources
+G:\学习\操作系统作业\testgdi2\testgdi2\obj\x86\Debug\testgdi2.form2.resources
+G:\学习\操作系统作业\testgdi2\testgdi2\obj\x86\Debug\testgdi2.Properties.Resources.resources
+G:\学习\操作系统作业\testgdi2\testgdi2\obj\x86\Debug\GenerateResource.read.1.tlog
+G:\学习\操作系统作业\testgdi2\testgdi2\obj\x86\Debug\GenerateResource.write.1.tlog
+G:\学习\操作系统作业\testgdi2\testgdi2\obj\x86\Debug\testgdi2.exe
+G:\学习\操作系统作业\testgdi2\testgdi2\obj\x86\Debug\testgdi2.pdb
