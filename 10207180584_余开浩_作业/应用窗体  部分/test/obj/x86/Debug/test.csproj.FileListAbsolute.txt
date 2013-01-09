@@ -1,0 +1,11 @@
+c:\users\yukaihao\documents\visual studio 2010\Projects\test\test\bin\Debug\test.exe
+c:\users\yukaihao\documents\visual studio 2010\Projects\test\test\bin\Debug\test.pdb
+c:\users\yukaihao\documents\visual studio 2010\Projects\test\test\obj\x86\Debug\ResolveAssemblyReference.cache
+c:\users\yukaihao\documents\visual studio 2010\Projects\test\test\obj\x86\Debug\test.Properties.Resources.resources
+c:\users\yukaihao\documents\visual studio 2010\Projects\test\test\obj\x86\Debug\GenerateResource.read.1.tlog
+c:\users\yukaihao\documents\visual studio 2010\Projects\test\test\obj\x86\Debug\GenerateResource.write.1.tlog
+c:\users\yukaihao\documents\visual studio 2010\Projects\test\test\obj\x86\Debug\test.exe
+c:\users\yukaihao\documents\visual studio 2010\Projects\test\test\obj\x86\Debug\test.pdb
+c:\users\yukaihao\documents\visual studio 2010\Projects\test\test\obj\x86\Debug\test.frmparent.resources
+c:\users\yukaihao\documents\visual studio 2010\Projects\test\test\obj\x86\Debug\test.frmchild1.resources
+C:\Users\yukaihao\Documents\Visual Studio 2010\Projects\test\test\obj\x86\Debug\test.frmchild2.resources
