@@ -1,0 +1,14 @@
+F:\vs项目文件\FormsTest\FormsTest\bin\Debug\FormsTest.exe
+F:\vs项目文件\FormsTest\FormsTest\bin\Debug\FormsTest.pdb
+F:\vs项目文件\FormsTest\FormsTest\obj\x86\Debug\ResolveAssemblyReference.cache
+F:\vs项目文件\FormsTest\FormsTest\obj\x86\Debug\FormsTest.Properties.Resources.resources
+F:\vs项目文件\FormsTest\FormsTest\obj\x86\Debug\GenerateResource.read.1.tlog
+F:\vs项目文件\FormsTest\FormsTest\obj\x86\Debug\GenerateResource.write.1.tlog
+F:\vs项目文件\FormsTest\FormsTest\obj\x86\Debug\FormsTest.exe
+F:\vs项目文件\FormsTest\FormsTest\obj\x86\Debug\FormsTest.pdb
+F:\vs项目文件\FormsTest\FormsTest\obj\x86\Debug\FormsTest.InputDialogBox.resources
+F:\vs项目文件\FormsTest\FormsTest\obj\x86\Debug\FormsTest.DrawingForm.resources
+F:\vs项目文件\FormsTest\FormsTest\bin\Debug\FormsTest.exe.manifest
+F:\vs项目文件\FormsTest\FormsTest\bin\Debug\FormsTest.application
+F:\vs项目文件\FormsTest\FormsTest\obj\x86\Debug\FormsTest.exe.manifest
+F:\vs项目文件\FormsTest\FormsTest\obj\x86\Debug\FormsTest.application

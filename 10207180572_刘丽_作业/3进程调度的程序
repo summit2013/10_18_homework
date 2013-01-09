@@ -1,0 +1,21 @@
+　static inline int goodness(struct task_struct * p， int this_cpu， struct mm_struct *this_mm)
+　　{ int weight；
+　　if (p->；；policy ！= SCHED_OTHER) {/*如果是实时进程，则*/
+　　weight = 1000 + p->；；rt_priority；
+　　goto out；
+　　}
+　　/* 将counter的值赋给weight，这就给了进程一个大概的权值，counter中的值表示进程在一个时间片内，剩下要运行的时间.*/
+　　weight = p->；；counter；
+　　if (！weight) /* weight==0，表示该进程的时间片已经用完，则直接转到标号out*/
+　　goto out；
+　　#ifdef __SMP__
+　　/*在SMP情况下，如果进程将要运行的CPU与进程上次运行的CPU是一样的，则最有利，因此，假如进程上次运行的CPU与当前CPU一致的话，权值加上PROC_CHANGE_PENALTY，这个宏定义为20。*/
+　　if (p->；；processor == this_cpu)
+　　weight += PROC_CHANGE_PENALTY；
+　　#endif
+　　if (p->；；mm == this_mm) /*进程p与当前运行进程，是同一个进程的不同线程，或者是共享地址空间的不同进程，优先选择，权值加1*/
+　　weight += 1；
+　　weight += p->；；priority； /* 权值加上进程的优先级*/
+　　out：
+　　return weight； /* 返回值作为进程调度的唯一依据，谁的权值大，就调度谁运行*/
+　　}
