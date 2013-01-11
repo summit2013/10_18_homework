@@ -1,0 +1,289 @@
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Threading;
+
+namespace 进程调度
+{
+  class Program
+  {
+    static bool leave=false;
+    public class schedul
+    {
+        public schedul() { }  //构造函数     
+        
+        public struct pcb    //进程控制块结构
+        {
+            public string name;
+            public int TimeComing;//到达时间
+            public int TimeServer;//服务时间
+            public int TimeBegin;//开始时间
+            public int TimeEnd;//结束时间
+            public int TimeCycle;//周转时间
+            public double rate;
+            public bool finish;
+        }
+       
+
+        private int TimeEnd = 0;
+       // public pcb pcb1 = new pcb();
+
+        public void display_menu()//显示选择菜单
+        {
+            Console.WriteLine("请选择调度算法:" + "\n");
+            Console.WriteLine("1 先来先服务");
+            Console.WriteLine("2 最短作业优先法");
+            Console.WriteLine("3 响应比高者优先法");
+            Console.WriteLine("4 退出");
+        }
+
+        public void Time(ref pcb[] m_pcb)    //数据输入函数
+        {
+            for (int i = 0; i < m_pcb.Length; i++)
+            {
+                int m = i + 1;  //数组从0开始，加1后方便用户阅读
+                Console.WriteLine("输入第" + m + "个进程名称");
+                m_pcb[i].name = Console.ReadLine();  
+                Console.WriteLine("请输入进程到达时间");
+                m_pcb[i].TimeComing = Convert.ToInt32(Console.ReadLine()); 
+                Console.WriteLine("请输入进程服务时间");
+                m_pcb[i].TimeServer = Convert.ToInt32(Console.ReadLine()); 
+            }
+            Console.Clear();
+        }
+
+        public void display(pcb[] m_pcb)    //数据输出函数
+        {
+            Console.WriteLine("进程名" + "\t" + "到达时间" + "\t" + "服务时间" + "\t" + "开始时间" + "\t" + "结束时间" + "\t" + "周转时间");
+            for (int i = 0; i < m_pcb.Length; i++)
+            {
+                Console.WriteLine(m_pcb[i].name + "            " + m_pcb[i].TimeComing + "             "
+                               + m_pcb[i].TimeServer + "               " + m_pcb[i].TimeBegin + "               "
+                               + m_pcb[i].TimeEnd + "                " + m_pcb[i].TimeCycle);
+            }
+        }
+
+        public void main()
+        {
+            display_menu();//显示选择菜单
+            int k = Convert .ToInt32(Console.ReadLine());
+            int NumPcb = 0;
+            switch (k)
+            {
+                case 1:   //先来先服务调度
+                    Console.Clear();
+                    Console.WriteLine("请输入进程的个数:");
+                    NumPcb = Convert.ToInt32(Console.ReadLine());
+                    pcb[] m_pcb = new pcb[NumPcb];
+                    FCFS(ref m_pcb); 
+                    break;
+                case 2:   //最短作业优先法调度
+                    Console.Clear();
+                    Console.WriteLine("请输入进程的个数:");
+                    NumPcb = Convert.ToInt32(Console.ReadLine());
+                    pcb[] m_pcb1 = new pcb[NumPcb];
+                    SPN(ref m_pcb1);  
+                    break;
+                case 3:   //最高响应比优先法调度
+                    Console.Clear();
+                    Console.WriteLine("请输入进程的个数:");
+                    NumPcb = Convert.ToInt32(Console.ReadLine());
+                    pcb[] m_pcb2 = new pcb[NumPcb];
+                    HRRN(ref m_pcb2);
+                    break;
+                case 4:
+                    leave=true;
+                    break ;   //退出
+                default:
+                    Console.WriteLine("您输入错误的信息");
+                    break  ;
+            }
+        }
+
+
+        public void FCFS(ref pcb[] m_pcb)    // 先来先服务 
+        {
+            Time(ref m_pcb);   //数据输入函数
+            int n = 0;    //保存先来的服务的索引
+
+            for (int j = 0; j < m_pcb.Length; j++)
+            {
+                n = FirstIn(ref m_pcb);    //调用求要进入此次的服务进程n的函数
+                int k = m_pcb[n].TimeServer;    //服务时间
+
+                if (j != 0)  //不是第一个进程
+                {
+                    m_pcb[n].TimeBegin = TimeEnd;
+                    TimeEnd += m_pcb[n].TimeServer;
+                    m_pcb[n].TimeEnd = m_pcb[n].TimeBegin + m_pcb[n].TimeServer;
+
+                }
+                else if (j == 0)  //第一个进程
+                {
+                    m_pcb[n].TimeBegin = m_pcb[n].TimeComing;
+                    m_pcb[n].TimeEnd = m_pcb[n].TimeComing + m_pcb[n].TimeServer;
+                    TimeEnd = m_pcb[n].TimeEnd;
+                }
+
+                m_pcb[n].TimeCycle = m_pcb[n].TimeEnd - m_pcb[n].TimeComing;
+
+                for (int i = 0; i < k; i++)
+                {
+                    Thread.Sleep(1000);
+                    Console.Clear();  //清屏
+                    m_pcb[n].TimeServer--;  //还需要的服务时间，循环一次，自减。
+                    display(m_pcb);
+                }
+                m_pcb[n].finish = true; //标明此个进程已经结束
+            }
+        }
+
+        private int FirstIn(ref pcb[] m_pcb) //求最早到达时间的作业，返回此作业在进程控制块数组中的索引号。
+        {
+            int n = 0;
+            int m = 10000;  //设置最大服务时间10000个单位
+            for (int j = 0; j < m_pcb.Length; j++)
+            {
+                if (m >= m_pcb[j].TimeComing && !m_pcb[j].finish) //求到达时间最小、并且是没完成的作业。
+                {
+                    m = m_pcb[j].TimeComing; //到达时间最小的作业的到达时间赋给m
+                    n = j;//保存最小到达时间的索引号
+                }
+            }
+            return n;
+        }
+
+        public void SPN(ref pcb[] m_pcb)//最短作业优先
+        {
+            Time(ref m_pcb);  //数据输入函数
+            int n = 0;//保存先来的服务的索引
+
+            for (int j = 0; j < m_pcb.Length; j++)
+            {
+                n = Shortest(ref m_pcb); //求最先到达的服务
+                int k = m_pcb[n].TimeServer;  //服务时间
+
+                if (j != 0)  //不是第一个进程
+                {
+                    m_pcb[n].TimeBegin = TimeEnd;
+                    TimeEnd += m_pcb[n].TimeServer;
+                    m_pcb[n].TimeEnd = m_pcb[n].TimeBegin + m_pcb[n].TimeServer;
+                }
+                else if (j == 0)  //第一个进程
+                {
+                    m_pcb[n].TimeBegin = m_pcb[n].TimeComing;
+                    m_pcb[n].TimeEnd = m_pcb[n].TimeComing + m_pcb[n].TimeServer;
+                    TimeEnd = m_pcb[n].TimeEnd;
+                }
+                m_pcb[n].TimeCycle = m_pcb[n].TimeEnd - m_pcb[n].TimeComing;
+                m_pcb[n].finish = true;
+
+                for (int i = 0; i < k; i++)
+                {
+                    Thread.Sleep(1000);
+                    Console.Clear();  //清屏
+                    m_pcb[n].TimeServer--;  //还需要的服务时间，循环一次，自减。
+                    display(m_pcb);
+                }
+            }
+        }
+
+        private int Shortest(ref pcb[] m_pcb) //求最短服务时间的作业，返回此作业在进程控制块数组中的索引号。
+        {
+            int n = 0;
+            int TimeServer = 1000;
+            for (int j = 0; j < m_pcb.Length; j++)
+            {
+                //作业已经到时开始了
+                if (m_pcb[j].TimeComing <= TimeEnd && TimeServer >= m_pcb[j].TimeServer && !m_pcb[j].finish)
+                {
+                    TimeServer = m_pcb[j].TimeServer;  //保存最小的服务时间
+                    n = j;
+                }
+            }
+            return n;
+        }
+
+        public void HRRN(ref pcb[] m_pcb)   //最高响应比高者优先
+        {
+            Time(ref m_pcb);  //数据输入函数
+            int n = 0;//保存先来的服务的索引
+
+            for (int j = 0; j < m_pcb.Length; j++)
+            {
+                n = Highest(ref m_pcb); //求最先到达的服务
+                int k = m_pcb[n].TimeServer;  //服务时间
+
+                if (j != 0)  //不是第一个进程
+                {
+                    m_pcb[n].TimeBegin = TimeEnd;
+                    TimeEnd += m_pcb[n].TimeServer;
+                    m_pcb[n].TimeEnd = m_pcb[n].TimeBegin + m_pcb[n].TimeServer;
+                }
+                else if (j == 0)  //第一个进程
+                {
+                    m_pcb[n].TimeBegin = m_pcb[n].TimeComing;
+                    m_pcb[n].TimeEnd = m_pcb[n].TimeComing + m_pcb[n].TimeServer;
+                    TimeEnd = m_pcb[n].TimeEnd;
+                }
+                m_pcb[n].TimeCycle = m_pcb[n].TimeEnd - m_pcb[n].TimeComing;
+                m_pcb[n].finish = true;
+
+                for (int i = 0; i < k; i++)
+                {
+                    Thread.Sleep(1000);
+                    Console.Clear();  //清屏
+                    m_pcb[n].TimeServer--;  //还需要的服务时间，循环一次，自减。
+                    display(m_pcb);
+                }
+            }
+        }
+
+        private int Highest(ref pcb[] m_pcb) //求最高响应比的作业，返回此作业在进程控制块数组中的索引号。
+        {
+            int n = 0;
+            double TimeDelay = 0.0;
+            for (int j = 0; j < m_pcb.Length; j++)
+            {
+                //作业已经到时开始了
+                int TimeWait = TimeEnd - m_pcb[j].TimeComing; //等待时间
+                if (TimeWait >= 0 && !m_pcb[j].finish && TimeDelay <= TimeWait / m_pcb[j].TimeServer)
+                {
+                    TimeDelay = TimeWait / m_pcb[j].TimeServer;
+                    n = j;
+                }
+            }
+            return n;
+        }
+    }
+
+        static void Main(string[] args)
+        {
+            bool leave_main = true;
+            schedul sch = new schedul();
+            do 
+            {
+                sch.main();
+                if (leave)
+                    Environment.Exit(0);  //当在菜单选择退出时，直接退出控制台窗口
+                Console.WriteLine("\n进程调度已完成\n 请选择\n1、返回主菜单\n2、退出");
+                int h = Convert.ToInt32(Console.ReadLine());
+                if (h == 1)
+                {
+                    Console.Clear();
+                }
+                else
+                {
+                    if (h == 2)
+                    {
+                        leave_main = false;
+                    }
+                    else
+                    {
+                        Console.WriteLine("您输入了错误的信息");
+                    }
+                }
+            }while (leave_main==true);
+        }
+    }
+}

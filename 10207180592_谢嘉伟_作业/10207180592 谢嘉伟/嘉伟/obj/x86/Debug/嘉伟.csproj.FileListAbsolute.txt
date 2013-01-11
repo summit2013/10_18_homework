@@ -1,0 +1,9 @@
+F:\C#\嘉伟\嘉伟\bin\Debug\嘉伟.exe
+F:\C#\嘉伟\嘉伟\bin\Debug\嘉伟.pdb
+F:\C#\嘉伟\嘉伟\obj\x86\Debug\ResolveAssemblyReference.cache
+F:\C#\嘉伟\嘉伟\obj\x86\Debug\嘉伟.Form1.resources
+F:\C#\嘉伟\嘉伟\obj\x86\Debug\嘉伟.Properties.Resources.resources
+F:\C#\嘉伟\嘉伟\obj\x86\Debug\GenerateResource.read.1.tlog
+F:\C#\嘉伟\嘉伟\obj\x86\Debug\GenerateResource.write.1.tlog
+F:\C#\嘉伟\嘉伟\obj\x86\Debug\嘉伟.exe
+F:\C#\嘉伟\嘉伟\obj\x86\Debug\嘉伟.pdb
