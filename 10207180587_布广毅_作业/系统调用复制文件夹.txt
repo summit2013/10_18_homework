@@ -1,0 +1,47 @@
+import java.io.*;
+
+ class Test{
+
+ public static void main(String args[]) {
+  Test.copyDir("D:\\DLL动态库","J:\\xxxxx");
+  
+
+ }
+
+
+ /**
+  来自:pujia12345(Baidu)
+  */
+ public static boolean copyDir(String src,String des){
+  try{
+  byte[] buf=new byte[1024];
+  int n=0;
+    File srcDir=new File(src); //得到源
+    File desDir=new File(des);  //得到目的
+    if(!srcDir.exists()) {System.out.println(srcDir.getAbsolutePath()+"目录不存在!");return false;} //源不存在就返回
+    if(!desDir.exists()) desDir.mkdir(); //目的不存在就建立目录
+    File[] srcTemp=null;
+    FileInputStream input=null;
+    FileOutputStream output=null;
+    srcTemp=srcDir.listFiles(); //将源目录解析为数组
+    for(int i=0;i<srcTemp.length;i++){ //循环文件数组
+     System.out.println(srcTemp[i].getAbsolutePath()+"  [已经复制!]");
+     if(srcTemp[i].isDirectory()) {new File(des+"\\"+srcTemp[i].getName()).mkdir();copyDir(src+"\\"+srcTemp[i].getName(),des+"\\"+srcTemp[i].getName());} //如果这个文件是目录 递归这个目录
+     else {
+      input=new FileInputStream(srcTemp[i]); //否则建立流复制文件
+      output=new FileOutputStream(des+"\\"+srcTemp[i].getName());
+      while((n=input.read(buf,0,1024))!=-1){
+       output.write(buf,0,n);
+      }
+      input.close();
+      output.close();
+     }
+    }
+    }catch(Exception e){
+     e.printStackTrace();
+     return false;
+    }
+    return true;
+
+}
+}
